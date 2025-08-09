@@ -3,6 +3,7 @@ package zf.TurboChe.LightRTP;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,6 +23,7 @@ public class Main extends JavaPlugin {
     private final Set<String> allowedWorlds = new HashSet<>();
     private final Map<UUID, Long> cooldowns = new HashMap<>();
     private RTPManager rtpManager;
+    private String prefix;
 
     @Override
     public void onEnable() {
@@ -29,13 +31,16 @@ public class Main extends JavaPlugin {
         config = getConfig();
         reloadConfigSettings();
 
+        //定义前缀
+        this.prefix = ChatColor.BLUE + "[" + ChatColor.RED + "LightRTP" + ChatColor.BLUE + "] ";
+
         rtpManager = new RTPManager(this);
-        getLogger().info("LightRTP 已启用");
+        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "LightRTP 已启用");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("LightRTP 已禁用");
+        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "LightRTP 已禁用");
     }
 
     public void reloadConfigSettings() {
@@ -58,10 +63,6 @@ public class Main extends JavaPlugin {
             return true;
         }
 
-        if (!checkConditions(player)) return true;
-        String title = "§b§lInfinity";
-        String subTitle = ChatColor.GREEN + "正在寻找安全位置...";
-        player.sendTitle(title, subTitle, 5, 15, 5);
         rtpManager.startRTP(player);
         return true;
     }
@@ -71,6 +72,7 @@ public class Main extends JavaPlugin {
         if (!allowedWorlds.contains(player.getWorld().getName())) {
             String title = "§b§lInfinity";
             String subTitle = ChatColor.RED + "此世界不允许使用随机传送！";
+            player.playSound(player.getLocation(), Sound.NOTE_PLING, 1.0f, 1.0f);
 
             player.sendTitle(title, subTitle, 5, 15, 5);
             return false;
@@ -80,7 +82,7 @@ public class Main extends JavaPlugin {
         if (!player.isOp() && !player.hasPermission("lightrtp.unlimitcd")) {
             long cooldown = getCooldownTime(player) * 1000; // 转为毫秒
             UUID uuid = player.getUniqueId();
-            
+
             if (cooldowns.containsKey(uuid)) {
                 long remaining = (cooldowns.get(uuid) + cooldown - System.currentTimeMillis()) / 1000;
                 if (remaining > 0) {
@@ -96,6 +98,7 @@ public class Main extends JavaPlugin {
         if (!player.hasPermission("lightrtp.use") && !player.hasPermission("lightrtp.vip") && !player.isOp()) {
 
             player.sendMessage(ChatColor.RED + "你没有权限使用随机传送！");
+            player.playSound(player.getLocation(), Sound.NOTE_PLING, 1.0f, 1.0f);
             return false;
         }
 
@@ -110,6 +113,7 @@ public class Main extends JavaPlugin {
         String title = ChatColor.GREEN + "传送成功！";
         String subTitle = ChatColor.YELLOW + "你的坐标：" + x + ", " + y + ", " + z;
         player.sendTitle(title, subTitle, 5, 15, 5);
+        player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0f, 1.0f);
     }
 
     // 根据玩家权限获取冷却时间（秒）
@@ -146,4 +150,3 @@ public class Main extends JavaPlugin {
         }
     }
 }
-    
