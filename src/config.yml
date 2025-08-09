@@ -1,0 +1,23 @@
+# LightRTP 配置文件
+allowed-worlds:
+  - 'world'
+  - 'resource'
+
+# 传送半径（方块）
+radius:
+  default: 700   # 普通玩家（lightrtp.use权限）
+  vip: 1000      # VIP玩家（lightrtp.vip权限）
+
+# 冷却时间（秒）
+cooldown:
+  default: 90    # 普通玩家冷却时间
+  vip: 60        # VIP玩家冷却时间（需lightrtp.vip权限）
+
+# 危险方块列表
+dangerous-blocks:
+  - 'LAVA'
+  - 'AIR'
+
+# 最大尝试次数
+max-retries: 15
+    

@@ -1,0 +1,18 @@
+name: LightRTP
+main: zf.TurboChe.LightRTP.Main
+version: 1.1
+api-version: 1.7
+commands:
+  rtp:
+    usage: /rtp
+permissions:
+  lightrtp.use:
+    default: true
+  lightrtp.vip:
+    default: false
+  lightrtp.unlimitedcd:
+    default: false
+  lightrtp.reload:
+    description: 重载插件配置
+    default: op
+    

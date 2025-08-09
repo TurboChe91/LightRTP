@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Crucible-1.7.10-staging-6b337850-server">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Lib/SJ/Crucible-1.7.10-staging-6b337850-server.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

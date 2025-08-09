@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="LightRTP:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LightRTP_jar</output-path>
+    <root id="root">
+      <element id="archive" name="LightRTP.jar">
+        <element id="module-output" name="LightRTP" />
+      </element>
+    </root>
+  </artifact>
+</component>
