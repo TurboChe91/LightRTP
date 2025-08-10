@@ -35,7 +35,7 @@ public class RTPManager {
             final Location finalTarget = targetLocation;
             Bukkit.getScheduler().runTask(plugin, () -> {
                 if (finalTarget == null) {
-                    // 理论上不会触发（生成位置逻辑无重试限制）
+                    // 生成位置逻辑无重试限制）、
                     String title = ChatColor.RED + "生成位置失败";
                     String subTitle = ChatColor.RED + "请重试!";
                     targetPlayer.sendTitle(title, subTitle, 20, 60, 20);

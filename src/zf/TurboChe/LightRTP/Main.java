@@ -63,6 +63,10 @@ public class Main extends JavaPlugin {
             return true;
         }
 
+        // 执行条件检查
+        if (!checkConditions(player)) {
+            return true;
+        }
         rtpManager.startRTP(player);
         return true;
     }
@@ -79,7 +83,7 @@ public class Main extends JavaPlugin {
         }
 
         // OP不受冷却限制
-        if (!player.isOp() && !player.hasPermission("lightrtp.unlimitcd")) {
+        if (!player.isOp() && !player.hasPermission("lightrtp.unlimitedcd")) {
             long cooldown = getCooldownTime(player) * 1000; // 转为毫秒
             UUID uuid = player.getUniqueId();
 
@@ -134,18 +138,9 @@ public class Main extends JavaPlugin {
         }
     }
 
-    // 其他Getter方法
-    public Set<String> getDangerousBlocks() {
-        return new HashSet<>(config.getStringList("dangerous-blocks"));
-    }
-
-    public int getMaxRetries() {
-        return config.getInt("max-retries", 15);
-    }
-
     public void setCooldown(Player player) {
         // 拥有特殊权限不设置冷却
-        if (!player.hasPermission("lightrtp.unlimitcd")) {
+        if (!player.hasPermission("lightrtp.unlimitedcd")) {
             cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
         }
     }
